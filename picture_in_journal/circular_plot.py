@@ -8,7 +8,6 @@ import math
 
 def circular_plot(datafile, datafile1):
     # create data
-    # 创建数据
     size_of_groups = np.ones([60])/80
     data = pd.read_excel(datafile)
     data_p = data.values
@@ -59,7 +58,7 @@ def circular_plot(datafile, datafile1):
     print(data_pe4)
     print(type(data_pe4))
 
-    # 标签数据
+    # label
     names = np.zeros([60])
     for i in range(60):
         names[i]=i+1
@@ -68,12 +67,12 @@ def circular_plot(datafile, datafile1):
     print(names)
     print(type(names))
 
-    # 各个值对应相应的颜色
+    # colorbar
     # norm = colors.Normalize(data_pe.min(), data_pe.max())
     # colors = cm.jet(norm(data_pe))
 
     emp = np.zeros([60], dtype=float)
-    # 统计 p 小于 0.01 的 index 值
+    # the number of index>0.04
     for i in range(60):
         # print(i)
         if data_pe[i]>0.04:
@@ -89,7 +88,6 @@ def circular_plot(datafile, datafile1):
     emps = cm.jet(norm(emp))
 
     # Create a pieplot
-    # 创建饼图
     print(data_pe.max())
     cm = plt.cm.get_cmap('jet')
     colors = cm(data_pe/data_pe.max())
@@ -112,14 +110,11 @@ def circular_plot(datafile, datafile1):
         ax1.text(-1.04*math.sin((names[i]-0.5)*math.pi/40)-0.04, 1.04*math.cos((names[i]-0.5)*math.pi/40)-0.02, names[i], rotation=-theta*180/math.pi, color=emps[i])
 
     # add a circle at the center
-    # 添加一个圆
     # my_circle=plt.Circle((0,0), 0.85, color='white')
-    # # 获得当前显示的图表，也就是前面画的饼图
     # p=plt.gcf()
-    # # 将两图相加
     # p.gca().add_artist(my_circle)
 
-    # 设置等比例轴， x 和 y 轴等比例
+    # x and y equal
     ax1.axis('equal')
 
     fig2, ax2 = plt.subplots(figsize=(6,2))
@@ -131,22 +126,22 @@ def circular_plot(datafile, datafile1):
     ax2.spines['right'].set_visible(False)
     ax2.spines['bottom'].set_visible(False)
     ax2.spines['left'].set_visible(False)
-    # y 轴不可见
+    # y unvisual
     ax2.axes.get_yaxis().set_visible(False)
-    # x 轴不可见
+    # x unvisual
     ax2.axes.get_xaxis().set_visible(False)
 
     divider = make_axes_locatable(plt.gca())
     cax = divider.append_axes("right", size="5%", pad="-10%")
     c = plt.colorbar(sc, cax=cax, shrink = 0.02)# , orientation="horizontal"
     cax.xaxis.set_ticks_position("top")
-    c.ax.tick_params(labelsize=6)  #设置色标刻度字体大小
+    c.ax.tick_params(labelsize=6) 
     font = {'family' : 'serif',
             'color'  : 'darkred',
             'weight' : 'normal',
             'size'   : 10,
             }
-    c.set_label('fisher score',fontdict=font) #设置colorbar的标签字体及其大小
+    c.set_label('fisher score',fontdict=font)
     return fig1, fig2
 
 
