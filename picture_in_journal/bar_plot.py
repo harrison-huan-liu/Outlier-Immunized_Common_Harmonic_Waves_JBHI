@@ -54,17 +54,16 @@ def bar_plot(data):
     # print(bins2)
     # print(patches2)
 
-    # 绘制直方图对应的折线图
+    # plot the line
     # plt.plot(x,n,color='red',label='CN')
 
-    # 绘制正态函数曲线
+    # plot the curve
     mu2 = 451.3279751 # 8.4221
     sigma2 = 96.27814189 # 3.5319
     bins2 = np.linspace(200, 900, 320)
     y2 = norm.pdf(bins2, mu2, sigma2)
     l2 = plt.plot(bins2, y2, color='#FF0000', label='CN')
 
-    # 绘制直方图的拟合曲线
     # parameter = np.polyfit(x, n, 2)
     # y2 = parameter[0] * x ** 2 + parameter[1] * x + parameter[2] #parameter[0] * x ** 3 +
     # plt.plot(x, y2, color='red', label='CN')
@@ -87,16 +86,14 @@ def bar_plot(data):
 
 
 def remove(box_1):
-    # 计算下四分位数和上四分位
     Q1 = np.percentile(box_1, 25)
     Q3 = np.percentile(box_1, 75)
 
-    # 基于1.5倍的四分位差计算上下须对应的值
     low_whisker = Q1 - 1.5 * (Q3 - Q1)
     up_whisker = Q3 + 1.5 * (Q3 - Q1)
 
     outlier_num = []
-    # 寻找异常点
+    # find outlier
     for i in range(len(box_1)):
         if (float(box_1[i]) >= up_whisker) or (float(box_1[i]) <= low_whisker):
             outlier_num.append(i)
