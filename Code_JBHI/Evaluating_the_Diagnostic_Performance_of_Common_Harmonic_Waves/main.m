@@ -52,7 +52,7 @@ CN_tau_data_reduce=CN_tau.Tau;
 LMCI_tau_data_reduce=LMCI_tau.Tau;
 AD_tau_data_reduce=AD_tau.Tau;
 
-% 合并LMCI和AD的数据
+% combine LMCI and AD
 com_tau_num_LMCI=size(LMCI_tau_data_reduce,2);
 com_tau_num_AD=size(AD_tau_data_reduce,2);
 for i=1:com_tau_num_AD
