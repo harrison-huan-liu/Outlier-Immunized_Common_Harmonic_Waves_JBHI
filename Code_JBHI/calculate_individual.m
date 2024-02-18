@@ -1,15 +1,15 @@
 function [update_individual_phi]=calculate_individual(p, m, n, W, A, B, beta)
 WP=cell(m,2);
 D=cell(m,2);
-LB=cell(m,2);%最小特征值的拉格朗日函数对应的lower bound
-WW=cell(m,2);%独立谐波集更新值
+LB=cell(m,2);%lower bound
+WW=cell(m,2);
 % beta=0.01;
 e=0.0001;
 mm=10;
 M=100;
 theta=cell(m,1);
 WWP=cell(m,2);
-WWW=cell(m,1);%WWW存储每个独立谐波的更新值
+WWW=cell(m,1);
 
 delta=zeros(n,p);
 for i=1:p
@@ -27,7 +27,7 @@ for i=1:m
     tic
     while abs(tem1)>=e&&t<20
         t1=beta*B/(2*sqrt(p-trace(W{i,t}.'*B)));
-        g1=2*(A{i}-t2*eye(n))*W{i,t}-t1;%梯度fW
+        g1=2*(A{i}-t2*eye(n))*W{i,t}-t1;%gradient fW
         [U1,~,V1]=svd(g1);
         WP{i,t}=U1*(-delta)*V1.';
 %         if WP{i,t}(1,1)<0
@@ -36,7 +36,7 @@ for i=1:m
         D{i,t}=WP{i,t}-W{i,t};  
         f=trace((A{i}-t2*eye(n))*W{i,t}*W{i,t}.')+p*t2+beta*sqrt(trace(eye(p)-W{i,t}.'*B));
         LB{i,t}=trace(g1.'*D{i,t})+f;
-        tem1=(f-LB{i,t})/(f+1);%判断收敛标准
+        tem1=(f-LB{i,t})/(f+1);% convergence standard
         temp=1001;
         for kk=0:9:99
             alpha1=1-0.01*kk;
@@ -58,12 +58,12 @@ for i=1:m
         object_value(t)=f;
         t=t+1;
     end
-    WW{i,1}=W{i,t-1};%WW存储每个独立谐波的更新值
+    WW{i,1}=W{i,t-1};
 end
 
 %% individual
 % filename='updateindidata.xlsx';
-% step=cell(m,1);%步长记录
+% step=cell(m,1);% step record
 save_time=zeros(500,15);
 save_obj=zeros(500,15);
 for i=1:m
