@@ -2,13 +2,13 @@ clear
 clc
 %% common
 p=60;% p is the number of eignvectors %60
-Graph=Preprocess_data_np_noTransM_01('../Data/DataTS-processed.csv',p);%Graph包括关于脑连接信息的邻接矩阵，度矩阵，拉普拉斯矩阵及其对应的特征向量矩阵
-m=size(Graph,2);%m是研究对象的数目
-n=size(Graph(1).L,1);%每个研究对象的结点数目
-A=cell(m,1);%拉普拉斯矩阵
+Graph=Preprocess_data_np_noTransM_01('../Data/DataTS-processed.csv',p);
+m=size(Graph,2);
+n=size(Graph(1).L,1);
+A=cell(m,1);
 beta=0.01;
 gama=1;
-C=zeros(n,n);%所有拉普拉斯矩阵的和
+C=zeros(n,n);
 
 for i=1:m
     A{i}=Graph(i).L;
@@ -36,9 +36,9 @@ for i=1:m
     C=C+A{i};
 end
 [B,~]=eig(C/m);
-B=B(:,1:p);%公共谐波初值
+B=B(:,1:p);
 
-lastcom_phi_a{1,1}=B;%公共谐波的变化值存储
+lastcom_phi_a{1,1}=B;
 
 for i=1:m
     [H,~]=eig(A{i});
