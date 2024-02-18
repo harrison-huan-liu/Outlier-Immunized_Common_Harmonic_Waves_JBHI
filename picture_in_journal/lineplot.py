@@ -6,7 +6,7 @@ import matplotlib.font_manager as fm
 import matplotlib
 
 def excel_one_line_to_list(address, result):
-    df = pd.read_excel(address, usecols=[1], names=None)  # 读取第一列，不要列名
+    df = pd.read_excel(address, usecols=[1], names=None)  # first column
     # print(df)
     df_li = df.values.tolist()
 
